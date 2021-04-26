@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.benni.shoppinglist.databinding.FragmentListEditViewBinding
 
 
-class ListEditFragment : Fragment() {
+class ListEditFragment : Fragment(), FullListViewFragment.FullListViewFragmentListener {
     private var binder: FragmentListEditViewBinding? = null
     private val binding get() = binder!!
 
