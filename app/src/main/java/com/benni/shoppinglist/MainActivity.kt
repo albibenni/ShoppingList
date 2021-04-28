@@ -1,29 +1,20 @@
 package com.benni.shoppinglist
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import com.benni.shoppinglist.databinding.ActivityMainBinding
-import com.benni.shoppinglist.db.DataBase
-import com.benni.shoppinglist.db.ListsDao
-import com.benni.shoppinglist.db.entities.Lists
-import com.benni.shoppinglist.db.entities.ShoppingItems
-import kotlinx.coroutines.launch
-import java.util.*
+import com.benni.shoppinglist.dataclass.ShoppingList
+import com.benni.shoppinglist.fragments.FullListViewFragment
+import com.benni.shoppinglist.fragments.ListEditFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
-
-
-
 
         //viewBinding
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -35,10 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         //MANAGE FRAGMENT
         //entry fragment
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fullListViewFragment)
-            commit()
-        }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flFragment, fullListViewFragment)
+                .commit()
 
 
 
@@ -49,6 +39,16 @@ class MainActivity : AppCompatActivity() {
 //            commit()
 //        }
 
+
+    }
+
+    override fun passDataFullListToEditList(shoppingList: String) {
+        val bundle = Bundle()
+        bundle.putCharSequence("message", shoppingList)
+        val trnasaction = this.supportFragmentManager.beginTransaction()
+        val listEditFragment = ListEditFragment()
+        listEditFragment.arguments = bundle
+        trnasaction.replace(R.id.flFragment, listEditFragment).commit()
 
     }
 }

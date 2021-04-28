@@ -18,12 +18,16 @@ interface ListsDao {
     @Query("SELECT * FROM lists")
     suspend fun getLists(): List<Lists>
 
+    @Query("SELECT * FROM shoppingitems")
+    suspend fun getItems(): List<ShoppingItems>
+
 //    @Query("SELECT * FROM shoppingitems WHERE expiringdate = :currentDate")
 //    suspend fun getExpiringDate(currentDate: Date): List<ShoppingItems>
     @Transaction
     @Query("SELECT * FROM lists")
-    suspend fun getRelations(): List<ListsAndShoppingItems>
+    suspend fun getRelationsList(): List<ListsAndShoppingItems>
     //update tab items require relation with lists
+
 
     //insert new list -- double table insert and use transaction to syncronize the 2 tables
 

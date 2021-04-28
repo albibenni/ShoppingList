@@ -13,3 +13,5 @@ data class ListsAndShoppingItems (
     )
     val shoppingItems: List<ShoppingItems>
 )
+
+//todo error somewhere
